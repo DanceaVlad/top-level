@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" role="heading" aria-label="Header">
+        <a mat-icon-button
+           class="example-icon"
+           aria-label="Navigate to home page"
+           matTooltip="Nagivate to home page"
+           matTooltipPosition="below"
+           routerLink="/"
+        >
+            <mat-icon>home</mat-icon>
+        </a>
+        <span class="big-spacer"></span>
+        @if (!authService.currentUserSig()) {
+            <button mat-raised-button (click)="openSignInDialog()" aria-label="Sign in">Sign in</button>
+            <span class="small-spacer"></span>
+            <button mat-raised-button (click)="openSignUpDialog()" aria-label="Sign up">Sign up</button>
+        } @else {
+            <button mat-raised-button (click)="authService.signOut()" aria-label="Sign out">Sign out</button>
+        }
+</mat-toolbar>

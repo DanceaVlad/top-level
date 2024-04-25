@@ -1,0 +1,56 @@
+$side-menu-color: #81B29A;
+$body-color: #F4F1DE;
+$accent-color: #E07A5F;
+
+.sign-up-modal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 12rem;
+    width: 100%;
+
+    font-size: 1rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 17rem;
+}
+
+
+input {
+    font-size: 1rem;
+    background-color: $body-color;
+
+    width: 15rem;
+    height: 2rem;
+
+    margin-bottom: 0.1rem;
+    margin-top: 0.1rem;
+
+    border-radius: 0.5rem;
+    border: none;
+    box-shadow: black 0 0 1rem -0.2rem;
+}
+
+input::placeholder {
+    font-size: 1rem;
+    color: #888;
+}
+
+a {
+    cursor: pointer;
+    font-size: 1rem;
+    background-color: $accent-color;
+    padding: 0.7rem;
+    color: $body-color;
+    border-radius: 0.5rem;
+    box-shadow: black 0 0 0.5rem -0.2rem;
+    margin-top: 0.4rem;
+}

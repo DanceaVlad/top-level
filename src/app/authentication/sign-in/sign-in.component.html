@@ -1,0 +1,13 @@
+<div class="sign-in-modal-container">
+    @if (errorMessage) {
+        <div>{{ errorMessage }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <input class="form-input" type="text"  placeholder="Email" id="Email" formControlName="email">
+        <input class="form-input" type="password"  placeholder="Password" id="Password" formControlName="password">
+        <a (click)="onSubmit()" type="submit">Sign in</a>
+    </form>
+</div>
+
+

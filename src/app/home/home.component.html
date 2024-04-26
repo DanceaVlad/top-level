@@ -1,3 +1,18 @@
-<app-header></app-header>
-{{this.authService.currentUserSig()?.username}}
-<app-project-card></app-project-card>
+<div class="home-container">
+    <mat-grid-list cols="3" rowHeight="25vh" gutterSize="0.5rem">
+        @for (tile of tiles; track tile) {
+            <mat-grid-tile [colspan]="tile.cols" [rowspan]="tile.rows" [routerLink]="tile.routerLink">
+                <div class="tile-container"
+                     matRipple
+                     (mouseenter)="ripple.launch({ centered: true, persistent: true })"
+                     (mouseleave)="ripple.fadeOutAll()"
+                     #ripple="matRipple">
+                    <img class="tile-img" [ngSrc]="tile.imgSrc" fill priority alt="img src">
+                    <div class="tile-overlay"></div>
+                    <span class="tile-text">{{tile.text}}</span>
+                </div>
+            </mat-grid-tile>
+        }
+    </mat-grid-list>
+</div>
+

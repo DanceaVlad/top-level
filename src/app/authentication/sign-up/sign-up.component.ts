@@ -99,8 +99,12 @@ export class SignUpComponent implements OnInit, OnDestroy{
             case 'auth/user-disabled':
                 this.firebaseErrorMessage = 'User disabled';
                 break;
+            case 'auth/email-already-in-use':
+                this.firebaseErrorMessage = 'Email already in use';
+                break;
             default:
                 this.firebaseErrorMessage = 'An error has occurred';
+                break;
         }
     }
 

@@ -1,0 +1,36 @@
+<app-header></app-header>
+
+<table mat-table [dataSource]="userNotes" class="mat-elevation-z8">
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+
+    <!-- Content Column -->
+    <ng-container matColumnDef="content">
+        <th mat-header-cell *matHeaderCellDef> Content </th>
+        <td mat-cell *matCellDef="let element"> {{element.content}} </td>
+    </ng-container>
+
+    <!-- Is completed Column -->
+    <ng-container matColumnDef="isCompleted">
+        <th mat-header-cell *matHeaderCellDef> Is Completed </th>
+        <td mat-cell *matCellDef="let element"> {{element.isCompleted}} </td>
+    </ng-container>
+
+    <!-- User id Column -->
+    <ng-container matColumnDef="userUID">
+        <th mat-header-cell *matHeaderCellDef> User id </th>
+        <td mat-cell *matCellDef="let element"> {{element.userUID}} </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<button mat-raised-button color="primary" (click)="createNote()">Add Note</button>
+
+

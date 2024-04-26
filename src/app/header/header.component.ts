@@ -9,11 +9,6 @@ import {SignInComponent} from "../authentication/sign-in/sign-in.component";
 import {AuthService} from "../authentication/auth.service";
 import {SignUpComponent} from "../authentication/sign-up/sign-up.component";
 
-export interface DialogData {
-    animal: string;
-    name: string;
-}
-
 @Component({
   selector: 'app-header',
   standalone: true,

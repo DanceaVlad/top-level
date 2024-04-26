@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit{
                 this.authService.currentUserSig.set({
                     email: user.email!,
                     username: user.displayName!,
+                    userUID: user.uid!
                 });
             } else {
                 this.authService.currentUserSig.set(null);

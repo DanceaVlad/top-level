@@ -9,12 +9,6 @@
                 <th mat-header-cell *matHeaderCellDef> Title </th>
                 <td mat-cell *matCellDef="let element"> {{element.title}} </td>
             </ng-container>
-
-            <ng-container matColumnDef="content">
-                <th mat-header-cell *matHeaderCellDef> Content </th>
-                <td mat-cell *matCellDef="let element"> {{element.content}} </td>
-            </ng-container>
-
             <ng-container matColumnDef="isCompleted">
                 <th mat-header-cell *matHeaderCellDef> Is Completed </th>
                 <td mat-cell *matCellDef="let element">
@@ -23,16 +17,15 @@
                     </button>
                 </td>
             </ng-container>
-
             <ng-container matColumnDef="userUID">
                 <th mat-header-cell *matHeaderCellDef> User UID </th>
                 <td mat-cell *matCellDef="let element"> {{element.userUID}} </td>
             </ng-container>
-
             <ng-container matColumnDef="createdAt">
                 <th mat-header-cell *matHeaderCellDef> Created at </th>
                 <td mat-cell *matCellDef="let element"> {{element.createdAt | date: 'MMM d, y, h:mm a' }} </td>
             </ng-container>
+
 
             <ng-container matColumnDef="expand">
                 <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
@@ -44,8 +37,12 @@
                             <mat-icon>keyboard_arrow_down</mat-icon>
                         }
                     </button>
+                    <button mat-icon-button aria-label="delete row" (click)="delete(element)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </td>
             </ng-container>
+
 
             <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
             <ng-container matColumnDef="expandedDetail">
@@ -58,14 +55,11 @@
             </ng-container>
 
 
-
             <tr mat-header-row *matHeaderRowDef="displayedColumns.concat('expand')"></tr>
-
             <tr mat-row *matRowDef="let element; columns: displayedColumns.concat('expand');"
                 class="example-element-row"
                 [class.example-expanded-row]="expandedElement === element">
             </tr>
-
             <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 
         </table>

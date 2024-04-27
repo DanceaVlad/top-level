@@ -26,7 +26,6 @@ import {DatePipe} from "@angular/common";
             transition('void => expanded', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
         ]),
     ]
-
 })
 export class NotesComponent implements OnInit, OnDestroy{
 
@@ -38,7 +37,7 @@ export class NotesComponent implements OnInit, OnDestroy{
 
     private subscription: Subscription = new Subscription();
 
-    displayedColumns: string[] = ['title', 'content', 'isCompleted', 'userUID', 'createdAt'];
+    displayedColumns: string[] = ['title', 'isCompleted', 'userUID', 'createdAt'];
     expandedElement: NoteInterface | null = null;
 
     ngOnInit() {
@@ -88,5 +87,9 @@ export class NotesComponent implements OnInit, OnDestroy{
     changeCompletion(note: NoteInterface) {
         note.isCompleted = !note.isCompleted;
         this.storageService.updateNoteById(note).then(() => {});
+    }
+
+    delete(note: NoteInterface) {
+        this.storageService.deleteNoteById(note).then(() => {});
     }
 }

@@ -1,5 +1,15 @@
 import {Injectable} from '@angular/core';
-import {Firestore, collection, collectionData, doc, docData, setDoc, where, query} from '@angular/fire/firestore';
+import {
+    Firestore,
+    collection,
+    collectionData,
+    doc,
+    docData,
+    setDoc,
+    where,
+    query,
+    deleteDoc
+} from '@angular/fire/firestore';
 import {map, Observable} from 'rxjs';
 import {NoteInterface} from "../entities/note.interface";
 import {Timestamp} from "firebase/firestore";
@@ -34,4 +44,8 @@ export class StorageService {
         return setDoc(doc(firebaseRef), note);
     }
 
+    deleteNoteById(note: NoteInterface) {
+        const firebaseRef = collection(this.firestore, 'notes');
+        return deleteDoc(doc(firebaseRef, note.id))
+    }
 }

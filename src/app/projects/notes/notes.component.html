@@ -1,36 +1,80 @@
 <app-header></app-header>
 
-<table mat-table [dataSource]="userNotes" class="mat-elevation-z8">
+@if (authService.currentUserSig()) {
+    @if (userNotes.length === 0) {
+        <h1>There are no notes to display</h1>
+    } @else {
+        <table mat-table [dataSource]="userNotes" multiTemplateDataRows class="mat-elevation-z8">
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> Title </th>
+                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
 
-    <!-- Title Column -->
-    <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef> Title </th>
-        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-    </ng-container>
+            <ng-container matColumnDef="content">
+                <th mat-header-cell *matHeaderCellDef> Content </th>
+                <td mat-cell *matCellDef="let element"> {{element.content}} </td>
+            </ng-container>
 
-    <!-- Content Column -->
-    <ng-container matColumnDef="content">
-        <th mat-header-cell *matHeaderCellDef> Content </th>
-        <td mat-cell *matCellDef="let element"> {{element.content}} </td>
-    </ng-container>
+            <ng-container matColumnDef="isCompleted">
+                <th mat-header-cell *matHeaderCellDef> Is Completed </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button aria-label="toggle completion" (click)="changeCompletion(element)">
+                        <mat-icon>{{ element.isCompleted ? 'radio_button_checked' : 'radio_button_unchecked' }}</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
 
-    <!-- Is completed Column -->
-    <ng-container matColumnDef="isCompleted">
-        <th mat-header-cell *matHeaderCellDef> Is Completed </th>
-        <td mat-cell *matCellDef="let element"> {{element.isCompleted}} </td>
-    </ng-container>
+            <ng-container matColumnDef="userUID">
+                <th mat-header-cell *matHeaderCellDef> User UID </th>
+                <td mat-cell *matCellDef="let element"> {{element.userUID}} </td>
+            </ng-container>
 
-    <!-- User id Column -->
-    <ng-container matColumnDef="userUID">
-        <th mat-header-cell *matHeaderCellDef> User id </th>
-        <td mat-cell *matCellDef="let element"> {{element.userUID}} </td>
-    </ng-container>
+            <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef> Created at </th>
+                <td mat-cell *matCellDef="let element"> {{element.createdAt | date: 'MMM d, y, h:mm a' }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="expand">
+                <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                        @if (expandedElement === element) {
+                            <mat-icon>keyboard_arrow_up</mat-icon>
+                        } @else {
+                            <mat-icon>keyboard_arrow_down</mat-icon>
+                        }
+                    </button>
+                </td>
+            </ng-container>
+
+            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.concat('expand').length">
+                    <div class="example-element-detail"
+                         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <div class="example-element-position"> {{element.content}} </div>
+                    </div>
+                </td>
+            </ng-container>
 
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
 
-<button mat-raised-button color="primary" (click)="createNote()">Add Note</button>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns.concat('expand')"></tr>
+
+            <tr mat-row *matRowDef="let element; columns: displayedColumns.concat('expand');"
+                class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element">
+            </tr>
+
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+        </table>
+        <button mat-raised-button color="primary" (click)="createNote()">Add Note</button>
+    }
+} @else {
+    <div class="not-signed-in-container">
+        <h1> You must sign in/up to view your notes</h1>
+    </div>
+}
 
 
